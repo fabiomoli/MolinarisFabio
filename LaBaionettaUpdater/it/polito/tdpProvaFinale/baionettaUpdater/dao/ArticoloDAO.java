@@ -106,12 +106,9 @@ public class ArticoloDAO {
 
 			ResultSet rs = st.executeQuery();
 
-			System.out.println("leggo dal database le parole chiave");
-
 			while (rs.next()) {
 				ParolaChiave pc = new ParolaChiave(rs.getString("parola"), rs.getString("link"), rs.getInt("peso"));
 				paroleChiave.add(pc);
-				System.out.println(pc.getParola());
 			}
 
 			st.close();

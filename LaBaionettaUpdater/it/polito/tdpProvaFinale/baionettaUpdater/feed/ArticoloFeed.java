@@ -8,9 +8,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.safety.Whitelist;
 import org.jsoup.select.Elements;
 
 import it.polito.tdpProvaFinale.BaionettaUpdater.model.Articolo;
@@ -72,42 +72,53 @@ public class ArticoloFeed {
 		return null;
 	}
 
-	public Set<ParolaChiave> getText(Articolo a) {
+	private Set<ParolaChiave> getText(Articolo a) {
 		Set<ParolaChiave> paroleChiave = new HashSet<>();
 		try {
 			Document doc = Jsoup.connect(a.getLink()).get();
 			Elements body = doc.getElementsByClass("post-body entry-content");
-			String parola = body.html();
-			for (String p : parola.split(" ")) {
-				if (p.length() > 4 && !p.contains("<") && !p.contains("=") && !p.contains(">")
-						&& !p.contains("allow") && !p.contains("quel") && !p.contains("dell")) {
-					p.replaceAll("[^a-zA-Z0-9]","");
+			String testoHtml = Jsoup.clean(body.html(), Whitelist.simpleText());
+			for (String parola : testoHtml.split(" ")) {
+				String p = parola.replaceAll("[^a-zA-Z0-9]", "");
 
-					for (ParolaChiave pc : paroleChiave) {
-						if (pc.getParola().equals(p)) {
-							int numero = pc.getPeso();
-							numero++;
-							pc.setPeso(numero);
+				if (p.length() > 3 && !p.contains("quel") && !p.contains("dell")) {
+
+					ParolaChiave pc = new ParolaChiave(p.toLowerCase(), a.getLink(), 1);
+
+					if (!paroleChiave.contains(pc)) {
+						paroleChiave.add(pc);
+					}
+					
+					if (paroleChiave.contains(pc)) {
+						for (ParolaChiave par : paroleChiave) {
+							if (pc.getLink().equals(par.getLink()) && pc.getParola().equals(par.getParola())) {
+								int numero = par.getPeso();
+								numero++;
+								par.setPeso(numero);
+							}
 						}
 					}
-					paroleChiave.add(new ParolaChiave(p.toLowerCase(), a.getLink(), 1));
 				}
 			}
 		} catch (IOException e) {
 			System.out.println("Internet!!");
-
-			return paroleChiave;
 		}
+
+		return paroleChiave;
+
+	}
+
+	public Set<ParolaChiave> getParoleGold(Articolo a) {
 
 		Set<ParolaChiave> paroleChiaveGold = new HashSet<>();
 
-		for (ParolaChiave parola : paroleChiave) {
+		for (ParolaChiave parola : getText(a)) {
 			if (parola.getPeso() > 4) {
 				paroleChiaveGold.add(parola);
 			}
 		}
-		return paroleChiaveGold;
 
+		return paroleChiaveGold;
 	}
 
 }

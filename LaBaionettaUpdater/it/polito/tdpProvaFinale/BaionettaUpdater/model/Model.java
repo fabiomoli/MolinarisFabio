@@ -41,10 +41,10 @@ public class Model {
 		for (Articolo a : articoliNew) {
 			Set<ParolaChiave> paroleChiave = new HashSet<>();
 			// ottengo le parole chiave da web
-			paroleChiave.addAll(rss.getText(a));
+			paroleChiave.addAll(rss.getParoleGold(a));
 			// ottengo le parole chiave da db
 			paroleChiave.addAll(dao.getAllParoleChiave(a));
-			// ottengo le parole chiava dal titolo (valgono doppio)
+			// ottengo le parole chiave dal titolo (valgono doppio)
 			paroleChiave.addAll(getParoleTitolo(a));
 			// aggiungo parole del titolo se non già presenti
 			a.setParoleChiave(paroleChiave);
@@ -60,9 +60,9 @@ public class Model {
 		Set<ParolaChiave> paroleChiave = new HashSet<>();
 
 		for (String p : a.getTitolo().split(" ")) {
-			if (p.length() > 2) {
-				p.replaceAll("[^a-zA-Z0-9]", "");
-				paroleChiave.add(new ParolaChiave(p.toLowerCase(), a.getLink(), 2));
+			if (p.length() > 3) {
+				String parola = p.replaceAll("[^a-zA-Z0-9]", "");
+				paroleChiave.add(new ParolaChiave(parola.toLowerCase(), a.getLink(), 2));
 			}
 		}
 		return paroleChiave;
