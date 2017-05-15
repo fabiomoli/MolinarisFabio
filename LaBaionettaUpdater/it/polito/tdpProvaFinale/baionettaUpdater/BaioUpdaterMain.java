@@ -9,6 +9,7 @@ public class BaioUpdaterMain {
 		Model model = new Model();
 
 		model.update();
+		
 	}
 
 }

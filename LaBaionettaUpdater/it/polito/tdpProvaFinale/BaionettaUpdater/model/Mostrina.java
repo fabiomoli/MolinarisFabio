@@ -1,39 +1,27 @@
 package it.polito.tdpProvaFinale.BaionettaUpdater.model;
 
-import java.util.HashSet;
-import java.util.Set;
-
 public class Mostrina {
 
-	private String mostrina;
-	private Set<Articolo> articoli = new HashSet<>();
+	private String nome;
 
-	public Set<Articolo> getAllArticoli() {
-		return articoli;
-	}
-
-	public void addArticoli(Articolo articoli) {
-		this.articoli.add(articoli);
-	}
-
-	public String getMostrina() {
-		return mostrina;
-	}
-
-	public void setMostrina(String mostrina) {
-		this.mostrina = mostrina;
-	}
-
-	public Mostrina(String mostrina) {
+	public Mostrina(String nome) {
 		super();
-		this.mostrina = mostrina;
+		this.nome = nome;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((mostrina == null) ? 0 : mostrina.hashCode());
+		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
 		return result;
 	}
 
@@ -46,21 +34,17 @@ public class Mostrina {
 		if (getClass() != obj.getClass())
 			return false;
 		Mostrina other = (Mostrina) obj;
-		if (mostrina == null) {
-			if (other.mostrina != null)
+		if (nome == null) {
+			if (other.nome != null)
 				return false;
-		} else if (!mostrina.equals(other.mostrina))
+		} else if (!nome.equals(other.nome))
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return this.mostrina;
-	}
-
-	public void setArticolo(Articolo a) {
-		articoli.add(a);
+		return this.nome;
 	}
 
 }

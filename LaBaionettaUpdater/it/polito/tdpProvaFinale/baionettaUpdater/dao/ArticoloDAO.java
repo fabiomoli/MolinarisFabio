@@ -18,7 +18,7 @@ public class ArticoloDAO {
 
 	public Set<Articolo> getAllArticoli() {
 		final String sql = "SELECT titolo, mostrina, penna, link, data FROM articolo";
-		Set<Articolo> articoli = new HashSet<Articolo>();
+		Set<Articolo> articoli = new HashSet<>();
 
 		try {
 			Connection conn = DBConnect.getInstance().getConnection();
@@ -53,7 +53,7 @@ public class ArticoloDAO {
 			System.out.println(a.getData().format(DateTimeFormatter.BASIC_ISO_DATE));
 
 			st.setString(1, a.getTitolo());
-			st.setString(2, a.getMostrina().getMostrina());
+			st.setString(2, a.getMostrina().getNome());
 			st.setString(3, a.getPenna().getNome());
 			st.setString(4, a.getLink());
 			String data = "" + a.getData().getYear() + "-" + a.getData().getMonthValue() + "-"
@@ -72,7 +72,9 @@ public class ArticoloDAO {
 	}
 
 	public void addParoleChiave(ParolaChiave pc) {
+
 		final String sql = "INSERT INTO parolaChiave (parola, link, peso)" + " VALUES (?, ?, ?)";
+
 		try {
 			Connection conn = DBConnect.getInstance().getConnection();
 			PreparedStatement st = conn.prepareStatement(sql);
@@ -123,5 +125,104 @@ public class ArticoloDAO {
 
 	}
 
+	public Set<Penna> getAllPenne() {
+
+		final String sql = "SELECT nome FROM penna;";
+
+		Set<Penna> penne = new HashSet<>();
+
+		try {
+			Connection conn = DBConnect.getInstance().getConnection();
+			PreparedStatement st = conn.prepareStatement(sql);
+
+			ResultSet rs = st.executeQuery();
+
+			while (rs.next()) {
+				Penna p = new Penna(rs.getString("nome"));
+				penne.add(p);
+			}
+
+			st.close();
+			conn.close();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new RuntimeException("Errore di connessione al Database.");
+		}
+
+		return penne;
+
+	}
+
+	public void addPenna(Penna p) {
+
+		final String sql = "INSERT INTO penna (nome) VALUES (?)";
+
+		try {
+			Connection conn = DBConnect.getInstance().getConnection();
+			PreparedStatement st = conn.prepareStatement(sql);
+
+			st.setString(1, p.getNome());
+
+			st.executeUpdate();
+
+			st.close();
+			conn.close();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new RuntimeException("Errore di connessione al Database.");
+		}
+	}
+
+	public Set<Mostrina> getAllMostrine() {
+
+		final String sql = "SELECT nome FROM mostrina;";
+
+		Set<Mostrina> mostrine = new HashSet<>();
+
+		try {
+			Connection conn = DBConnect.getInstance().getConnection();
+			PreparedStatement st = conn.prepareStatement(sql);
+
+			ResultSet rs = st.executeQuery();
+
+			while (rs.next()) {
+				Mostrina m = new Mostrina(rs.getString("nome"));
+				mostrine.add(m);
+			}
+
+			st.close();
+			conn.close();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new RuntimeException("Errore di connessione al Database.");
+		}
+
+		return mostrine;
+
+	}
+
+	public void addMostrina(Mostrina m) {
+
+		final String sql = "INSERT INTO mostrina (nome) VALUES (?)";
+
+		try {
+			Connection conn = DBConnect.getInstance().getConnection();
+			PreparedStatement st = conn.prepareStatement(sql);
+
+			st.setString(1, m.getNome());
+
+			st.executeUpdate();
+
+			st.close();
+			conn.close();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new RuntimeException("Errore di connessione al Database.");
+		}
+	}
 
 }

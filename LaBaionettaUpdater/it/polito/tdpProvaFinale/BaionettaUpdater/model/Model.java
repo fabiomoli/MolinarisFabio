@@ -11,6 +11,9 @@ public class Model {
 	private Set<Articolo> articoliRSS = new HashSet<>();
 	private Set<Articolo> articoliDB = new HashSet<>();
 
+	private Set<Penna> penne = new HashSet<>();
+	private Set<Mostrina> mostrine = new HashSet<>();
+
 	ArticoloDAO dao = new ArticoloDAO();
 	ArticoloFeed rss = new ArticoloFeed();
 
@@ -24,16 +27,38 @@ public class Model {
 		articoliDB.addAll(dao.getAllArticoli());
 	}
 
+	public void getAllPenne(){
+		penne.clear();
+		penne.addAll(dao.getAllPenne());
+	}
+
+	public void getAllMostrine(){
+		mostrine.clear();
+		mostrine.addAll(dao.getAllMostrine());
+	}
+
 	public void update() {
+		
 		getAllArticoliDB();
 		getArticoliFromRss();
+		getAllPenne();
+		getAllMostrine();
+		
 		Set<Articolo> articoliNew = new HashSet<>();
 		if (!articoliRSS.isEmpty()) {
 			for (Articolo a : articoliRSS) {
 				if (!articoliDB.contains(a)){
 					dao.addArticolo(a);
 					articoliNew.add(a);
-					System.out.println(articoliNew.size());
+					//System.out.println(articoliNew.size());
+				}
+				if (!penne.contains(a.getPenna())){
+					dao.addPenna(a.getPenna());
+					penne.add(a.getPenna());
+				}
+				if(!mostrine.contains(a.getMostrina())){
+					dao.addMostrina(a.getMostrina());
+					mostrine.add(a.getMostrina());
 				}
 			}
 		}
@@ -65,6 +90,8 @@ public class Model {
 				paroleChiave.add(new ParolaChiave(parola.toLowerCase(), a.getLink(), 2));
 			}
 		}
+
 		return paroleChiave;
 	}
+
 }
