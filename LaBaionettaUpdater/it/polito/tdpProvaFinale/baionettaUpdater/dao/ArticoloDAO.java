@@ -5,7 +5,6 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -24,8 +23,6 @@ public class ArticoloDAO {
 			Connection conn = DBConnect.getInstance().getConnection();
 			PreparedStatement st = conn.prepareStatement(sql);
 			ResultSet rs = st.executeQuery();
-
-			System.out.println("leggo dal database");
 
 			while (rs.next()) {
 				Articolo a = new Articolo(rs.getString("titolo"), new Mostrina(rs.getString("mostrina")),
@@ -49,8 +46,6 @@ public class ArticoloDAO {
 		try {
 			Connection conn = DBConnect.getInstance().getConnection();
 			PreparedStatement st = conn.prepareStatement(sql);
-
-			System.out.println(a.getData().format(DateTimeFormatter.BASIC_ISO_DATE));
 
 			st.setString(1, a.getTitolo());
 			st.setString(2, a.getMostrina().getNome());

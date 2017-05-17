@@ -26,8 +26,6 @@ public class ArticoloFeed {
 
 		String feedUrl = "https://labaionetta.blogspot.com/feeds/posts/default?alt=rss";
 
-		System.out.println("Leggo da rss");
-
 		FeedReader fd = new FeedReader(feedUrl);
 
 		if (fd.read() == null) {
@@ -40,7 +38,6 @@ public class ArticoloFeed {
 				if (message.getLink() != null) {
 					Mostrina m = new Mostrina(message.getCategory());
 					Penna p = creaPenna(message.getAuthor());
-					// System.out.println(p.getNome());
 
 					LocalDate date = LocalDate.parse(message.getPubDate(), DateTimeFormatter.RFC_1123_DATE_TIME);
 					Articolo a = new Articolo(message.getTitle(), m, p, message.getLink(), date);
@@ -88,7 +85,7 @@ public class ArticoloFeed {
 					if (!paroleChiave.contains(pc)) {
 						paroleChiave.add(pc);
 					}
-					
+
 					if (paroleChiave.contains(pc)) {
 						for (ParolaChiave par : paroleChiave) {
 							if (pc.getLink().equals(par.getLink()) && pc.getParola().equals(par.getParola())) {

@@ -6,6 +6,6 @@
 	<classpathentry kind="lib" path="/home/fabio/Desktop/c3p0-0.9.5.2/lib/c3p0-0.9.5.2.jar"/>
 	<classpathentry kind="lib" path="/home/fabio/Desktop/c3p0-0.9.5.2/lib/mchange-commons-java-0.2.11.jar"/>
 	<classpathentry kind="lib" path="/Lab09_MetroDeParis/lib/mysql-connector-java-5.1.29-bin.jar"/>
-	<classpathentry kind="lib" path="/home/fabio/Downloads/jsoup-1.10.2.jar"/>
+	<classpathentry kind="lib" path="/home/fabio/MEGA/Server/Java/jsoup-1.10.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
