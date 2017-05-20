@@ -1,10 +1,15 @@
 package it.polito.tdpProvaFinale.laBaionettaReader.browser;
 
+import java.io.IOException;
+import java.net.URI;
 import java.net.URL;
 import java.time.format.TextStyle;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import it.polito.tdpProvaFinale.laBaionettaReader.beans.Articolo;
@@ -96,6 +101,14 @@ public class BrowserController {
 	}
 
 	public void setUrl(String url) {
+		URI uri = URI.create(url);
+		Map<String, List<String>> headers = new LinkedHashMap<String, List<String>>();
+		headers.put("Set-Cookie", Arrays.asList("name=value"));
+		try {
+			java.net.CookieHandler.getDefault().put(uri, headers);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		web.getEngine().load(url);
 	}
 
