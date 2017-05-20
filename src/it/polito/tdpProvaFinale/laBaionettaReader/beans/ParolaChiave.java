@@ -68,4 +68,29 @@ public class ParolaChiave {
 		return true;
 	}
 
+	/**
+	 * confronta {@value}this.parola con {@value}pc2
+	 * @param pc
+	 *
+	 * @return {@code true} se una delle parole è contenuta nell'altra o se vi è
+	 *         non più di una lettera di differenza
+	 */
+	public boolean isSimele(ParolaChiave pc) {
+
+		if (this.parola.length() != pc.getParola().length())
+			if (this.parola.contains(pc.getParola()) || pc.getParola().contains(this.parola))
+				return true;
+
+		if (this.parola.length() == pc.getParola().length()) {
+			int diff = 0;
+			for (int i = 0; i < pc.getParola().length(); i++) {
+				if (this.parola.charAt(i) != pc.getParola().charAt(i))
+					diff++;
+			}
+			if (diff <= 1)
+				return true;
+		}
+		return false;
+	}
+
 }

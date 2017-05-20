@@ -94,7 +94,7 @@ public class Model {
 						for (ParolaChiave pc2 : a2.getParoleChiave()) {
 							if (pc1.hashCode() < pc2.hashCode()) {
 
-								if (pc1.getParola().contains(pc2.getParola())) {
+								if (pc1.isSimele(pc2)) {
 									peso += pc1.getPeso();
 								}
 							}
@@ -154,7 +154,6 @@ public class Model {
 	public List<Articolo> ricerca(String testo, Penna p, Mostrina m, LocalDate data) {
 
 		Set<Articolo> rrSet = new HashSet<>();
-		System.out.println("Inizio ricerca");
 
 		boolean flag;
 

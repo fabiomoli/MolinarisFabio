@@ -54,7 +54,7 @@
                               </VBox>
                               <VBox alignment="CENTER">
                                  <children>
-                                    <Button fx:id="btnLeggi0" alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#doLeggi0" text="Leggi" />
+                                    <Button fx:id="btnLeggi0" alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#doLeggi0" text="Leggi" VBox.vgrow="ALWAYS" />
                                  </children>
                               </VBox>
                            </children>
