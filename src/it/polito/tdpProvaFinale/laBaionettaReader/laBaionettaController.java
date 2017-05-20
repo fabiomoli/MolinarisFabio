@@ -3,6 +3,7 @@ package it.polito.tdpProvaFinale.laBaionettaReader;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 import it.polito.tdpProvaFinale.laBaionettaReader.beans.Articolo;
@@ -236,6 +237,9 @@ public class laBaionettaController {
     }
 
 	public void setModel(Model model) {
+		
+		Locale.setDefault(Locale.ITALY);
+		
 		this.model = model;
 		model.initialize();
 
@@ -260,7 +264,7 @@ public class laBaionettaController {
 
 	private void set(){
 
-		lblRicerca.setText("Caricati "+articoli.size()+" articoli ("+model.getNumUpdatedArticols()+" nuovi)");
+		lblRicerca.setText("Caricati "+articoli.size()+" articoli");
 
 		N=0;
 		if(N<articoli.size()){

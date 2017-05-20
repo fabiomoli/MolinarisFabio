@@ -18,9 +18,9 @@ public class Browser extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("Browser.fxml"));
-			BorderPane root = (BorderPane)loader.load();
+			BorderPane root = (BorderPane) loader.load();
 
-			BrowserController controller = loader.getController() ;
+			BrowserController controller = loader.getController();
 			controller.setModel(model);
 			controller.setUrl(url);
 			controller.setArticolo(articolo);
@@ -30,20 +30,20 @@ public class Browser extends Application {
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("La Baionetta Browser");
 			primaryStage.show();
-		} catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	public void setModel(Model model){
-		this.model=model;
+	public void setModel(Model model) {
+		this.model = model;
 	}
 
-	public void setUrl(String url){
-		this.url=url;
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
-	public void setArticolo(Articolo articolo){
-		this.articolo=articolo;
+	public void setArticolo(Articolo articolo) {
+		this.articolo = articolo;
 	}
 }

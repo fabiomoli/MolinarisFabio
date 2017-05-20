@@ -32,9 +32,6 @@ public class Model {
 
 	SimpleGraph<Articolo, DefaultWeightedEdge> grafo;
 
-	private int numArtOld;
-	private int numArtNew;
-
 	public List<Articolo> initialize() {
 		if (articoli.isEmpty())
 			articoli.addAll(dao.getAllArticoli());
@@ -74,6 +71,10 @@ public class Model {
 		return mostrine;
 	}
 
+	/**
+	 * crea un grafo i cui vertici sono <b>Articolo <\b> e gli archi sono pesati in funzione del numero
+	 * e del peso delle parole chiave simili
+	 */
 	private void creaGrafo() {
 
 		grafo = new SimpleWeightedGraph<Articolo, DefaultWeightedEdge>(DefaultWeightedEdge.class);
@@ -134,6 +135,11 @@ public class Model {
 		return articoliOrdinati;
 	}
 
+	/**
+	 * ordina per data decrescente un set di articoli
+	 * @param art
+	 * @return lista di articoli ordinati dal più recente al meno
+	 */
 	public List<Articolo> orderByDate(Set<Articolo> art) {
 		List<Articolo> articoliOrdinati = new ArrayList<>(art);
 		Collections.sort(articoliOrdinati);
@@ -144,7 +150,6 @@ public class Model {
 		List<Articolo> trovati = new ArrayList<>();
 		for (Articolo a : articoli) {
 			if (data != null && a.getData().isEqual(data)) {
-				System.out.println(data + " // " + a.getData());
 				trovati.add(a);
 			}
 		}
@@ -179,10 +184,11 @@ public class Model {
 		return orderByDate(rrSet);
 	}
 
-	public int getNumUpdatedArticols() {
-		return numArtNew - numArtOld;
-	}
-
+	/**
+	 *
+	 * @param a
+	 * @return Lista di articoli ordinati per grado di similitudine decrescente
+	 */
 	public List<Articolo> getArticoliSimili(Articolo a) {
 
 		Map<Articolo, Integer> simili = new TreeMap<>();

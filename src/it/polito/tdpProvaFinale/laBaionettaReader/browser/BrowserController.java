@@ -1,8 +1,10 @@
 package it.polito.tdpProvaFinale.laBaionettaReader.browser;
 
 import java.net.URL;
+import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 import it.polito.tdpProvaFinale.laBaionettaReader.beans.Articolo;
@@ -98,11 +100,17 @@ public class BrowserController {
 	}
 
 	public void setArticolo(Articolo a) {
+
 		lblTitolo.setText(a.getTitolo());
-		lblData.setText(a.getData().getDayOfWeek() + " " + a.getData().getDayOfMonth() + "-" + a.getData().getMonth()
-				+ "-" + a.getData().getYear());
+
+		lblData.setText(a.getData().getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.ITALY) + " "
+				+ a.getData().getDayOfMonth() + " - "
+				+ a.getData().getMonth().getDisplayName(TextStyle.FULL, Locale.ITALY) + " - " + a.getData().getYear());
+
 		lblPenna.setText(a.getPenna().getNome());
+
 		articoli = new ArrayList<>(model.getArticoliSimili(a));
+
 		lblSimile0.setText(articoli.get(0).getTitolo());
 		lblSimile1.setText(articoli.get(1).getTitolo());
 		lblSimile2.setText(articoli.get(2).getTitolo());
