@@ -1,6 +1,9 @@
 package it.polito.tdpProvaFinale.laBaionettaReader.browser;
 
 import java.io.IOException;
+import java.net.CookieHandler;
+import java.net.CookieManager;
+import java.net.CookiePolicy;
 import java.net.URI;
 import java.net.URL;
 import java.time.format.TextStyle;
@@ -105,10 +108,16 @@ public class BrowserController {
 		Map<String, List<String>> headers = new LinkedHashMap<String, List<String>>();
 		headers.put("Set-Cookie", Arrays.asList("name=value"));
 		try {
-			java.net.CookieHandler.getDefault().put(uri, headers);
+			CookieHandler.getDefault().put(uri, headers);
+			CookieManager manager = new CookieManager();
+			manager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		web.getEngine().load(url);
+	}
+
+	private void read(String url){
 		web.getEngine().load(url);
 	}
 
@@ -132,7 +141,7 @@ public class BrowserController {
 	}
 
 	private void doLeggi(int i) {
-		setUrl(articoli.get(i).getLink() + "?m=1");
+		read(articoli.get(i).getLink() + "?m=1");
 		setArticolo(articoli.get(i));
 	}
 }

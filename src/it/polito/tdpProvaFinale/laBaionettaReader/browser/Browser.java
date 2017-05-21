@@ -1,5 +1,9 @@
 package it.polito.tdpProvaFinale.laBaionettaReader.browser;
 
+import java.net.CookieHandler;
+import java.net.CookieManager;
+import java.net.CookiePolicy;
+
 import it.polito.tdpProvaFinale.laBaionettaReader.beans.Articolo;
 import it.polito.tdpProvaFinale.laBaionettaReader.model.Model;
 import javafx.application.Application;
@@ -21,6 +25,7 @@ public class Browser extends Application {
 			BorderPane root = (BorderPane) loader.load();
 
 			BrowserController controller = loader.getController();
+			
 			controller.setModel(model);
 			controller.setUrl(url);
 			controller.setArticolo(articolo);
