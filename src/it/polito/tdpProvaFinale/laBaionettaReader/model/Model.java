@@ -1,5 +1,6 @@
 package it.polito.tdpProvaFinale.laBaionettaReader.model;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -21,10 +22,12 @@ import it.polito.tdpProvaFinale.laBaionettaReader.beans.Mostrina;
 import it.polito.tdpProvaFinale.laBaionettaReader.beans.ParolaChiave;
 import it.polito.tdpProvaFinale.laBaionettaReader.beans.Penna;
 import it.polito.tdpProvaFinale.laBaionettaReader.dao.ArticoloDAO;
+import it.polito.tdpProvaFinale.laBaionettaReader.localBackup.LocalBackup;
 
 public class Model {
 
 	private ArticoloDAO dao = new ArticoloDAO();
+	LocalBackup lb = new LocalBackup();
 
 	private Set<Articolo> articoli = new HashSet<>();
 	private Set<Penna> penne = new HashSet<>();
@@ -215,6 +218,21 @@ public class Model {
 		}
 
 		return similiOrdinati;
+	}
+
+	public int getNumArtAggiornati() throws IOException {
+		lb.setNumArtNew(articoli.size());
+		int numArtAggiornati = lb.getNumAggiornati();
+
+		return numArtAggiornati;
+	}
+
+	public void segnaComeLetto(Articolo articolo) throws IOException {
+		lb.updateFileBackup(articolo);
+	}
+
+	public boolean isLetto(String articolo) {
+		return lb.isLetto(articolo);
 	}
 
 }

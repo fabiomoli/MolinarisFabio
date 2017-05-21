@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polito.tdpProvaFinale.laBaionettaReader.laBaionettaController">
+<BorderPane prefHeight="750.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polito.tdpProvaFinale.laBaionettaReader.laBaionettaController">
    <center>
       <VBox BorderPane.alignment="CENTER">
          <children>
@@ -153,9 +153,10 @@
                               <DatePicker fx:id="cbxData" promptText="Cerca per data" />
                            </children>
                         </HBox>
-                        <HBox alignment="CENTER" onDragDetected="#doCerca" VBox.vgrow="ALWAYS">
+                        <HBox alignment="CENTER" onDragDetected="#doCerca" spacing="20.0" VBox.vgrow="ALWAYS">
                            <children>
                               <Button mnemonicParsing="false" onAction="#doCerca" text="Cerca" />
+                              <Button layoutX="140.0" layoutY="10.0" mnemonicParsing="false" onAction="#doSegnaTuttoComeLetto" text="Segna tutto come letto" />
                            </children>
                         </HBox>
                      </children>

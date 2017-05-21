@@ -104,5 +104,4 @@ public class Articolo implements Comparable<Articolo>{
 		this.paroleChiave = paroleChiave;
 	}
 
-
 }

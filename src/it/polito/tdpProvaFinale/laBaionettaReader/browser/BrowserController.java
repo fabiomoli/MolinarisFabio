@@ -143,5 +143,11 @@ public class BrowserController {
 	private void doLeggi(int i) {
 		read(articoli.get(i).getLink() + "?m=1");
 		setArticolo(articoli.get(i));
+		try {
+			model.segnaComeLetto(articoli.get(i));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
+
 }
