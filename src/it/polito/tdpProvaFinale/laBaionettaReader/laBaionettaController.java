@@ -105,26 +105,31 @@ public class laBaionettaController {
 	@FXML
 	void doLeggi0(ActionEvent event) {
 		doLeggi(4);
+		lblTitolo0.setStyle("-fx-font-weight: normal");
 	}
 
 	@FXML
 	void doLeggi1(ActionEvent event) {
 		doLeggi(3);
+		lblTitolo1.setStyle("-fx-font-weight: normal");
 	}
 
 	@FXML
 	void doLeggi2(ActionEvent event) {
 		doLeggi(2);
+		lblTitolo2.setStyle("-fx-font-weight: normal");
 	}
 
 	@FXML
 	void doLeggi3(ActionEvent event) {
 		doLeggi(1);
+		lblTitolo3.setStyle("-fx-font-weight: normal");
 	}
 
 	@FXML
 	void doLeggi4(ActionEvent event) {
 		doLeggi(0);
+		lblTitolo4.setStyle("-fx-font-weight: normal");
 	}
 
 	@FXML

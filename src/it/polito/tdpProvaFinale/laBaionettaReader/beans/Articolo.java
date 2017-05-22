@@ -1,9 +1,11 @@
 package it.polito.tdpProvaFinale.laBaionettaReader.beans;
 
 import java.time.LocalDate;
+import java.time.format.TextStyle;
+import java.util.Locale;
 import java.util.Set;
 
-public class Articolo implements Comparable<Articolo>{
+public class Articolo implements Comparable<Articolo> {
 
 	private String titolo;
 	private Mostrina mostrina;
@@ -93,7 +95,9 @@ public class Articolo implements Comparable<Articolo>{
 
 	@Override
 	public String toString() {
-		return "" + titolo + "\n" + penna.getNome() + "\n" + data;
+		return "" + titolo + "\n" + penna.getNome() + "\n"
+				+ data.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.ITALY) + " " + data.getDayOfMonth() + " - "
+				+ data.getMonth().getDisplayName(TextStyle.FULL, Locale.ITALY) + " - " + data.getYear();
 	}
 
 	public Set<ParolaChiave> getParoleChiave() {
