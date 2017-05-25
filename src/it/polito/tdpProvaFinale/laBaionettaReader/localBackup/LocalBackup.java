@@ -49,7 +49,6 @@ public class LocalBackup {
 
 				String riga = s.split(" ")[0];
 				artLetti.add(riga);
-				System.out.println(riga);
 
 			}
 			reader.close();
