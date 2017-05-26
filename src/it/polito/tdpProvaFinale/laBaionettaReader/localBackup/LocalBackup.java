@@ -1,6 +1,7 @@
 package it.polito.tdpProvaFinale.laBaionettaReader.localBackup;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -39,12 +40,15 @@ public class LocalBackup {
 
 	public Set<String> getArticoliFromFile() throws IOException {
 
+		File BaioBackup = new File("BaioBackup.molis");
+		BaioBackup.createNewFile(); // if file already exists will do nothing
+
 		String s;
 
 		BufferedReader reader;
 
 		try {
-			reader = new BufferedReader(new FileReader("src/BaioBackup.molis"));
+			reader = new BufferedReader(new FileReader("BaioBackup.molis"));
 			while ((s = reader.readLine()) != null) {
 
 				String riga = s.split(" ")[0];
@@ -65,7 +69,7 @@ public class LocalBackup {
 
 			artLetti.add(articolo.getLink());
 
-			FileWriter out = new FileWriter("src/BaioBackup.molis", true);
+			FileWriter out = new FileWriter("BaioBackup.molis", true);
 
 			String content = "" + articolo.getLink() + "\n";
 			out.append(content);

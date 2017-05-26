@@ -332,7 +332,7 @@ public class laBaionettaController {
 			e.printStackTrace();
 		}
 
-		lblRicerca.setText("Caricati " + articoli.size() + " articoli (" + nuovi + " nuovi).");
+		lblRicerca.setText("Caricati " + articoli.size() + " articoli (" + nuovi + " nuovi)");
 
 		N = 0;
 		if (N < articoli.size()) {

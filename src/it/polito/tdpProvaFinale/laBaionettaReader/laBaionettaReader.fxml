@@ -17,7 +17,7 @@
    <center>
       <VBox BorderPane.alignment="CENTER">
          <children>
-            <VBox>
+            <VBox VBox.vgrow="ALWAYS">
                <children>
                   <HBox>
                      <children>
@@ -28,7 +28,7 @@
                            <children>
                               <ImageView fitHeight="202.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../../../../../img/Baio%20A4.png" />
+                                    <Image url="@Baio.png" />
                                  </image>
                               </ImageView>
                               <Label fx:id="lblRicerca" text="I nostri ultimi articoli">
@@ -41,7 +41,7 @@
                   </HBox>
                </children>
             </VBox>
-            <HBox>
+            <HBox VBox.vgrow="ALWAYS">
                <children>
                   <VBox alignment="CENTER_LEFT" spacing="10.0" HBox.hgrow="ALWAYS">
                      <children>
