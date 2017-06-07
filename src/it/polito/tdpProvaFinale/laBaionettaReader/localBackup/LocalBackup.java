@@ -15,7 +15,7 @@ public class LocalBackup {
 
 	private int numArtNew;
 	private int numAggiornati;
-	private Set<String> artLetti = new HashSet<>();;
+	private Set<String> artLetti = new HashSet<>();
 
 	public int getNumAggiornati() throws IOException {
 		numAggiornati = numArtNew - getNumArtOld();

@@ -405,9 +405,9 @@ public class laBaionettaController {
 			btnLeggi4.setDisable(true);
 		}
 
-		if (N <= articoli.size())
+		if (N+1 <= articoli.size())
 			btnVecchi.setDisable(false);
-		if (N >= articoli.size())
+		if (N+1 >= articoli.size())
 			btnVecchi.setDisable(true);
 
 		lblPagine.setText("pagina " + (N / 5 + 1) + " di " + (articoli.size() / 5 + 1));

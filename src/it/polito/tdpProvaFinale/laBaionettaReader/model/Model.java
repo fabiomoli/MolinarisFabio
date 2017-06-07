@@ -37,29 +37,11 @@ public class Model {
 
 	public List<Articolo> initialize() {
 		if (articoli.isEmpty())
-			articoli.addAll(dao.getAllArticoli());
+			articoli.addAll(dao.getAll());
 		if (mostrine.isEmpty())
 			mostrine.addAll(dao.getAllMostrine());
 		if (penne.isEmpty())
 			penne.addAll(dao.getAllPenne());
-
-		for (Mostrina m : mostrine) {
-			Set<Articolo> art = new HashSet<>();
-			for (Articolo a : articoli) {
-				if (a.getMostrina().equals(m))
-					art.add(a);
-			}
-			m.setArticoli(art);
-		}
-
-		for (Penna p : penne) {
-			Set<Articolo> art = new HashSet<>();
-			for (Articolo a : articoli) {
-				if (a.getPenna().equals(p))
-					art.add(a);
-			}
-			p.setArticoli(art);
-		}
 
 		creaGrafo();
 
@@ -83,10 +65,6 @@ public class Model {
 		grafo = new SimpleWeightedGraph<Articolo, DefaultWeightedEdge>(DefaultWeightedEdge.class);
 
 		Graphs.addAllVertices(grafo, articoli);
-
-		for (Articolo a : articoli) {
-			a.setParoleChiave(dao.getParoleChiave(a));
-		}
 
 		for (Articolo a1 : articoli) {
 			for (Articolo a2 : articoli) {

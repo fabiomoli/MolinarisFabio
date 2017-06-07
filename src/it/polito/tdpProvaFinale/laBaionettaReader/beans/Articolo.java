@@ -2,6 +2,7 @@ package it.polito.tdpProvaFinale.laBaionettaReader.beans;
 
 import java.time.LocalDate;
 import java.time.format.TextStyle;
+import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
 
@@ -21,6 +22,7 @@ public class Articolo implements Comparable<Articolo> {
 		this.penna = penna;
 		this.link = link;
 		this.data = data;
+		this.paroleChiave = new HashSet<>();
 	}
 
 	@Override
@@ -106,6 +108,10 @@ public class Articolo implements Comparable<Articolo> {
 
 	public void setParoleChiave(Set<ParolaChiave> paroleChiave) {
 		this.paroleChiave = paroleChiave;
+	}
+
+	public void addParolaChiave(ParolaChiave pc) {
+		this.paroleChiave.add(pc);
 	}
 
 }

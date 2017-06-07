@@ -14,11 +14,13 @@ import it.polito.tdpProvaFinale.laBaionettaReader.beans.Penna;
 
 public class ArticoloDAO {
 
-	public Set<Articolo> getAllArticoli() {
+	private Set<Articolo> articoli = new HashSet<>();
+	private Set<Penna> penne = new HashSet<>();
+	private Set<Mostrina> mostrine = new HashSet<>();
 
-		final String sql = "SELECT titolo, mostrina, penna, link, data FROM articolo";
+	public Set<Articolo> getAll() {
 
-		Set<Articolo> articoli = new HashSet<>();
+		final String sql = "SELECT titolo, mostrina, penna, articolo.link, parolaChiave.parola, data, peso FROM articolo, parolaChiave where parolaChiave.link = articolo.link";
 
 		try {
 			Connection conn = DBConnect.getInstance().getConnection();
@@ -26,11 +28,29 @@ public class ArticoloDAO {
 			ResultSet rs = st.executeQuery();
 
 			while (rs.next()) {
-				Articolo a = new Articolo(rs.getString("titolo"), new Mostrina(rs.getString("mostrina")),
-						new Penna(rs.getString("penna")), rs.getString("link"), (rs.getDate("data").toLocalDate()));
-				articoli.add(a);
-			}
 
+				Mostrina m = new Mostrina(rs.getString("mostrina"));
+				Penna p = new Penna(rs.getString("penna"));
+				ParolaChiave pc = new ParolaChiave(rs.getString("parola"), rs.getString("articolo.link"), rs.getInt("peso"));
+
+				Articolo a = new Articolo(rs.getString("titolo"), m, p, rs.getString("link"), (rs.getDate("data").toLocalDate()));
+
+				if (articoli.contains(a)) {
+					a.setMostrina(m);
+					a.setPenna(p);
+					a.addParolaChiave(pc);
+				}
+				if (!articoli.contains(a)) {
+					articoli.add(a);
+					a.setMostrina(m);
+					a.setPenna(p);
+					a.addParolaChiave(pc);
+				}
+
+				penne.add(p);
+				mostrine.add(m);
+
+			}
 			st.close();
 			conn.close();
 
@@ -42,87 +62,34 @@ public class ArticoloDAO {
 		return articoli;
 	}
 
+	public Set<Articolo> getAllArticoli() {
+
+		if(!articoli.isEmpty())
+			return articoli;
+		else{
+			getAll();
+			return getAllArticoli();
+		}
+	}
+
 	public Set<Penna> getAllPenne() {
 
-		final String sql = "SELECT nome FROM penna";
-
-		Set<Penna> penne = new HashSet<>();
-
-		try {
-			Connection conn = DBConnect.getInstance().getConnection();
-			PreparedStatement st = conn.prepareStatement(sql);
-			ResultSet rs = st.executeQuery();
-
-			while (rs.next()) {
-				Penna p = new Penna(rs.getString("nome"));
-				penne.add(p);
-			}
-
-			st.close();
-			conn.close();
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new RuntimeException("Errore di connessione al Database.");
+		if(!penne.isEmpty())
+			return penne;
+		else{
+			getAll();
+			return getAllPenne();
 		}
-
-		return penne;
 	}
 
 	public Set<Mostrina> getAllMostrine() {
 
-		final String sql = "SELECT nome FROM mostrina";
-
-		Set<Mostrina> mostrine = new HashSet<>();
-
-		try {
-			Connection conn = DBConnect.getInstance().getConnection();
-			PreparedStatement st = conn.prepareStatement(sql);
-			ResultSet rs = st.executeQuery();
-
-			while (rs.next()) {
-				Mostrina m = new Mostrina(rs.getString("nome"));
-				mostrine.add(m);
-			}
-
-			st.close();
-			conn.close();
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new RuntimeException("Errore di connessione al Database.");
+		if(!mostrine.isEmpty())
+			return mostrine;
+		else{
+			getAll();
+			return getAllMostrine();
 		}
-
-		return mostrine;
 	}
 
-	public Set<ParolaChiave> getParoleChiave(Articolo a) {
-
-		final String sql = "SELECT parola, peso FROM parolaChiave where link = ?;";
-
-		Set<ParolaChiave> parole = new HashSet<>();
-
-		try {
-			Connection conn = DBConnect.getInstance().getConnection();
-			PreparedStatement st = conn.prepareStatement(sql);
-
-			st.setString(1, a.getLink());
-
-			ResultSet rs = st.executeQuery();
-
-			while (rs.next()) {
-				ParolaChiave p = new ParolaChiave(rs.getString("parola"), a.getLink(), rs.getInt("peso"));
-				parole.add(p);
-			}
-
-			st.close();
-			conn.close();
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new RuntimeException("Errore di connessione al Database.");
-		}
-
-		return parole;
-	}
 }
