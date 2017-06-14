@@ -4,7 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import it.polito.tdpProvaFinale.laBaionettaReader.beans.Articolo;
@@ -14,7 +16,7 @@ import it.polito.tdpProvaFinale.laBaionettaReader.beans.Penna;
 
 public class ArticoloDAO {
 
-	private Set<Articolo> articoli = new HashSet<>();
+	Map<Articolo, Articolo> articoli = new HashMap<>();
 	private Set<Penna> penne = new HashSet<>();
 	private Set<Mostrina> mostrine = new HashSet<>();
 
@@ -35,16 +37,16 @@ public class ArticoloDAO {
 
 				Articolo a = new Articolo(rs.getString("titolo"), m, p, rs.getString("link"), (rs.getDate("data").toLocalDate()));
 
-				if (articoli.contains(a)) {
-					a.setMostrina(m);
-					a.setPenna(p);
-					a.addParolaChiave(pc);
+				if (articoli.containsKey(a)) {
+					articoli.get(a).setMostrina(m);
+					articoli.get(a).setPenna(p);
+					articoli.get(a).addParolaChiave(pc);
 				}
-				if (!articoli.contains(a)) {
-					articoli.add(a);
-					a.setMostrina(m);
-					a.setPenna(p);
-					a.addParolaChiave(pc);
+				if (!articoli.containsKey(a)) {
+					articoli.put(a, a);
+					articoli.get(a).setMostrina(m);
+					articoli.get(a).setPenna(p);
+					articoli.get(a).addParolaChiave(pc);
 				}
 
 				penne.add(p);
@@ -59,13 +61,13 @@ public class ArticoloDAO {
 			throw new RuntimeException("Errore di connessione al Database.");
 		}
 
-		return articoli;
+		return new HashSet<Articolo>(articoli.values());
 	}
 
 	public Set<Articolo> getAllArticoli() {
 
 		if(!articoli.isEmpty())
-			return articoli;
+			return new HashSet<Articolo>(articoli.values());
 		else{
 			getAll();
 			return getAllArticoli();

@@ -45,6 +45,15 @@ public class Model {
 
 		creaGrafo();
 
+		for(Articolo a: articoli){
+			System.out.println(a.getTitolo());
+			for(ParolaChiave co : a.getParoleChiave()){
+				System.out.println("\t"+co.getParola()+" "+co.getPeso());
+
+			}
+
+		}
+
 		return getAllArticoliOrderByDate();
 	}
 
