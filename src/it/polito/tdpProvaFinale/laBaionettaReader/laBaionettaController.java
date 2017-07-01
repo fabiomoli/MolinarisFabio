@@ -23,7 +23,7 @@ import javafx.stage.Stage;
 
 public class laBaionettaController {
 
-	Model model;
+	private Model model;
 
 	private int N = 0;
 
@@ -193,18 +193,17 @@ public class laBaionettaController {
 		reSet();
 	}
 
-
-    @FXML
-    void doSegnaTuttoComeLetto(ActionEvent event) {
-    	for(Articolo a : articoli)
+	@FXML
+	void doSegnaTuttoComeLetto(ActionEvent event) {
+		for (Articolo a : articoli)
 			try {
 				model.segnaComeLetto(a);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-    	reSet();
-    }
+		reSet();
+	}
 
 	@FXML
 	void doVecchi(ActionEvent event) {
@@ -405,9 +404,9 @@ public class laBaionettaController {
 			btnLeggi4.setDisable(true);
 		}
 
-		if (N+1 <= articoli.size())
+		if (N + 1 <= articoli.size())
 			btnVecchi.setDisable(false);
-		if (N+1 >= articoli.size())
+		if (N + 1 >= articoli.size())
 			btnVecchi.setDisable(true);
 
 		lblPagine.setText("pagina " + (N / 5 + 1) + " di " + (articoli.size() / 5 + 1));

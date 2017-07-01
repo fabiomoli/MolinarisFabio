@@ -25,7 +25,7 @@ public class ArticoloDAO {
 		final String sql = "SELECT titolo, mostrina, penna, articolo.link, parolaChiave.parola, data, peso FROM articolo, parolaChiave where parolaChiave.link = articolo.link";
 
 		try {
-			Connection conn = DBConnect.getInstance().getConnection();
+			Connection conn = DBConnect.getConnection();
 			PreparedStatement st = conn.prepareStatement(sql);
 			ResultSet rs = st.executeQuery();
 

@@ -45,15 +45,6 @@ public class Model {
 
 		creaGrafo();
 
-		for(Articolo a: articoli){
-			System.out.println(a.getTitolo());
-			for(ParolaChiave co : a.getParoleChiave()){
-				System.out.println("\t"+co.getParola()+" "+co.getPeso());
-
-			}
-
-		}
-
 		return getAllArticoliOrderByDate();
 	}
 
@@ -185,7 +176,6 @@ public class Model {
 
 		for (Articolo vicino : Graphs.neighborListOf(grafo, a)) {
 			simili.put(vicino, (int) grafo.getEdgeWeight(grafo.getEdge(a, vicino)));
-			grafo.getEdge(a, vicino);
 		}
 
 		Set<Map.Entry<Articolo, Integer>> set = simili.entrySet();
@@ -210,7 +200,6 @@ public class Model {
 	public int getNumArtAggiornati() throws IOException {
 		lb.setNumArtNew(articoli.size());
 		int numArtAggiornati = lb.getNumAggiornati();
-
 		return numArtAggiornati;
 	}
 
