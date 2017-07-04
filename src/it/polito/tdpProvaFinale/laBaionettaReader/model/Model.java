@@ -57,8 +57,8 @@ public class Model {
 	}
 
 	/**
-	 * crea un grafo i cui vertici sono <b>Articolo <\b> e gli archi sono pesati in funzione del numero
-	 * e del peso delle parole chiave simili
+	 * crea un grafo i cui vertici sono <b>Articolo <\b> e gli archi sono pesati
+	 * in funzione del numero e del peso delle parole chiave simili
 	 */
 	private void creaGrafo() {
 
@@ -75,13 +75,11 @@ public class Model {
 					for (ParolaChiave pc1 : a1.getParoleChiave()) {
 						for (ParolaChiave pc2 : a2.getParoleChiave()) {
 							if (pc1.hashCode() < pc2.hashCode()) {
-
 								if (pc1.isSimele(pc2)) {
 									peso += pc1.getPeso();
 								}
 							}
 						}
-
 						if (peso > 0) {
 							Graphs.addEdge(grafo, a1, a2, peso);
 						}
@@ -118,6 +116,7 @@ public class Model {
 
 	/**
 	 * ordina per data decrescente un set di articoli
+	 *
 	 * @param art
 	 * @return lista di articoli ordinati dal più recente al meno
 	 */
@@ -161,13 +160,12 @@ public class Model {
 				rrSet.add(a);
 			}
 		}
-
 		return orderByDate(rrSet);
 	}
 
 	/**
+	 * Riceve come parametro un @code Artcolo @param a
 	 *
-	 * @param a
 	 * @return Lista di articoli ordinati per grado di similitudine decrescente
 	 */
 	public List<Articolo> getArticoliSimili(Articolo a) {

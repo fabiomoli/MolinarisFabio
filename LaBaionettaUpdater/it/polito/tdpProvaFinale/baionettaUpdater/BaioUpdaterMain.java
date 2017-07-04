@@ -19,7 +19,6 @@ public class BaioUpdaterMain {
 				model.update();
 		    }
 		};
-
 		// schedule the task to run starting now and then every hour...
 		timer.schedule (hourlyTask, 0l, 1000*60*60);
 

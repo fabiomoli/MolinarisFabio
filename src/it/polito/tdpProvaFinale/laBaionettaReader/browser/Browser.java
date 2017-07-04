@@ -21,7 +21,6 @@ public class Browser extends Application {
 			BorderPane root = (BorderPane) loader.load();
 
 			BrowserController controller = loader.getController();
-
 			controller.setModel(model);
 			controller.setUrl(url);
 			controller.setArticolo(articolo);
