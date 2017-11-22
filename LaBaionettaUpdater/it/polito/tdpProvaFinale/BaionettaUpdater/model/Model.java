@@ -11,6 +11,7 @@ import java.util.Set;
 
 import it.polito.tdpProvaFinale.baionettaUpdater.dao.ArticoloDAO;
 import it.polito.tdpProvaFinale.baionettaUpdater.feed.ArticoloFeed;
+import it.polito.tdpProvaFinale.baionettaUpdater.feed.BackupText;
 
 public class Model {
 
@@ -46,7 +47,7 @@ public class Model {
 
 	public void update() throws IOException {
 
-		getArticoliFromFile();
+		//getArticoliFromFile();
 
 		getAllArticoliDB();
 		getArticoliFromRss();
@@ -104,6 +105,9 @@ public class Model {
 				if (!dao.getAllParoleChiave(a).contains(pca))
 					dao.addParoleChiave(pca);
 			}
+			BackupText bt = new BackupText();
+			bt.backupText(a);
+			System.out.println("NUOVO!!!");
 		}
 	}
 

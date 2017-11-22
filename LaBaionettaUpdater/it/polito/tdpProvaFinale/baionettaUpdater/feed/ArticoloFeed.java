@@ -118,4 +118,18 @@ public class ArticoloFeed {
 		return paroleChiaveGold;
 	}
 
+	public String getTextBody(Articolo a){
+	    String testoHtml = "";
+	    try
+	    {
+	      Document doc = Jsoup.connect(a.getLink()).get();
+	      Elements body = doc.getElementsByClass("post-body entry-content");
+	      testoHtml = body.html();
+	    }
+	    catch (IOException e)
+	    {
+	      System.out.println("Internet!!");
+	    }
+	    return testoHtml;
+	  }
 }
