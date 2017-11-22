@@ -1,5 +1,11 @@
 package it.polito.tdpProvaFinale.BaionettaUpdater.model;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -8,6 +14,7 @@ import it.polito.tdpProvaFinale.baionettaUpdater.feed.ArticoloFeed;
 
 public class Model {
 
+	private Set<Articolo> articoliFILE = new HashSet<>();
 	private Set<Articolo> articoliRSS = new HashSet<>();
 	private Set<Articolo> articoliDB = new HashSet<>();
 
@@ -37,13 +44,15 @@ public class Model {
 		mostrine.addAll(dao.getAllMostrine());
 	}
 
-	public void update() {
-		
+	public void update() throws IOException {
+
+		getArticoliFromFile();
+
 		getAllArticoliDB();
 		getArticoliFromRss();
 		getAllPenne();
 		getAllMostrine();
-		
+
 		Set<Articolo> articoliNew = new HashSet<>();
 		if (!articoliRSS.isEmpty()) {
 			for (Articolo a : articoliRSS) {
@@ -51,6 +60,24 @@ public class Model {
 					dao.addArticolo(a);
 					articoliNew.add(a);
 					//System.out.println(articoliNew.size());
+				}
+				if (!penne.contains(a.getPenna())){
+					dao.addPenna(a.getPenna());
+					penne.add(a.getPenna());
+				}
+				if(!mostrine.contains(a.getMostrina())){
+					dao.addMostrina(a.getMostrina());
+					mostrine.add(a.getMostrina());
+				}
+			}
+		}
+
+		if (!articoliFILE.isEmpty()) {
+			for (Articolo a : articoliFILE) {
+				if (!articoliDB.contains(a)){
+					dao.addArticolo(a);
+					articoliNew.add(a);
+					System.out.println(a);
 				}
 				if (!penne.contains(a.getPenna())){
 					dao.addPenna(a.getPenna());
@@ -94,4 +121,42 @@ public class Model {
 		return paroleChiave;
 	}
 
+
+	public void getArticoliFromFile() throws IOException{
+		String s;
+		BufferedReader reader;
+		try {
+			reader = new BufferedReader(new FileReader("src/BaioBackup.molis") );
+			while( (s = reader.readLine()) != null ){
+				//System.out.println(s);
+
+				Articolo a = new Articolo(null, null, null, null, null);
+
+				LocalDate date = LocalDate.parse(s.split("<> ")[0], DateTimeFormatter.ISO_LOCAL_DATE);
+				a.setData(date);
+
+				Mostrina m = null;
+				if(!s.split("<> ")[2].isEmpty()){
+					m = new Mostrina(s.split("<> ")[1]);
+					a.setMostrina(m);
+					}
+
+				a.setTitolo(s.split("<> ")[2]);
+
+				a.setLink(s.split("<> ")[3]);
+
+				Penna p = new Penna(s.split("<> ")[4]);
+				a.setPenna(p);
+
+				articoliFILE.add(a);
+				penne.add(p);
+				mostrine.add(m);
+			}
+
+			reader.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }

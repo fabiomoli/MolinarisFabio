@@ -17,7 +17,7 @@ public class DBConnect {
 	private DBConnect() {
 		instance = this;
 		try {
-			ds_unpooled = DataSources.unpooledDataSource(jdbcUrl, "root", "root");
+			ds_unpooled = DataSources.unpooledDataSource(jdbcUrl, "root", "gtik9328");
 			ds_pooled = DataSources.pooledDataSource( ds_unpooled );
 			} catch (SQLException e) {
 				e.printStackTrace();

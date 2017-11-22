@@ -1,5 +1,6 @@
 package it.polito.tdpProvaFinale.baionettaUpdater;
 
+import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -16,7 +17,12 @@ public class BaioUpdaterMain {
 		TimerTask hourlyTask = new TimerTask () {
 		    @Override
 		    public void run () {
-				model.update();
+				try {
+					model.update();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 		    }
 		};
 		// schedule the task to run starting now and then every hour...
