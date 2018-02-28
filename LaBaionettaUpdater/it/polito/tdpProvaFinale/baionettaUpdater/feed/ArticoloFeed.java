@@ -41,8 +41,10 @@ public class ArticoloFeed {
 
 					LocalDate date = LocalDate.parse(message.getPubDate(), DateTimeFormatter.RFC_1123_DATE_TIME);
 					Articolo a = new Articolo(message.getTitle(), m, p, message.getLink(), date);
-					if (!articoli.contains(a)) {
-						articoli.add(a);
+					if(message.getLink().contains("https://")) {//vengo aggiunti doppi (http e https) quindi filtro
+						if (!articoli.contains(a)) {
+							articoli.add(a);
+						}
 					}
 				}
 			}
@@ -78,7 +80,7 @@ public class ArticoloFeed {
 			for (String parola : testoHtml.split(" ")) {
 				String p = parola.replaceAll("[^a-zA-Z0-9]", "");
 
-				if (p.length() > 3 && !p.contains("quel") && !p.contains("dell")) {
+				if (p.length() > 3 && !p.contains("quel") && !p.contains("dell")){
 
 					ParolaChiave pc = new ParolaChiave(p.toLowerCase(), a.getLink(), 1);
 

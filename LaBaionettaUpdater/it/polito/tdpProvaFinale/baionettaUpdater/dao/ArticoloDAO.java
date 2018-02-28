@@ -20,7 +20,7 @@ public class ArticoloDAO {
 		Set<Articolo> articoli = new HashSet<>();
 
 		try {
-			Connection conn = DBConnect.getInstance().getConnection();
+			Connection conn = DBConnect.getConnection();
 			PreparedStatement st = conn.prepareStatement(sql);
 			ResultSet rs = st.executeQuery();
 
@@ -44,7 +44,7 @@ public class ArticoloDAO {
 	public void addArticolo(Articolo a) {
 		final String sql = "INSERT INTO articolo (titolo, mostrina, penna, link, data)" + " VALUES (?, ?, ?, ?, ?)";
 		try {
-			Connection conn = DBConnect.getInstance().getConnection();
+			Connection conn = DBConnect.getConnection();
 			PreparedStatement st = conn.prepareStatement(sql);
 
 			st.setString(1, a.getTitolo());
@@ -71,7 +71,7 @@ public class ArticoloDAO {
 		final String sql = "INSERT INTO parolaChiave (parola, link, peso)" + " VALUES (?, ?, ?)";
 
 		try {
-			Connection conn = DBConnect.getInstance().getConnection();
+			Connection conn = DBConnect.getConnection();
 			PreparedStatement st = conn.prepareStatement(sql);
 
 			st.setString(1, pc.getParola());
@@ -96,7 +96,7 @@ public class ArticoloDAO {
 		Set<ParolaChiave> paroleChiave = new HashSet<ParolaChiave>();
 
 		try {
-			Connection conn = DBConnect.getInstance().getConnection();
+			Connection conn = DBConnect.getConnection();
 			PreparedStatement st = conn.prepareStatement(sql);
 
 			st.setString(1, a.getLink());
@@ -127,7 +127,7 @@ public class ArticoloDAO {
 		Set<Penna> penne = new HashSet<>();
 
 		try {
-			Connection conn = DBConnect.getInstance().getConnection();
+			Connection conn = DBConnect.getConnection();
 			PreparedStatement st = conn.prepareStatement(sql);
 
 			ResultSet rs = st.executeQuery();
@@ -154,7 +154,7 @@ public class ArticoloDAO {
 		final String sql = "INSERT INTO penna (nome) VALUES (?)";
 
 		try {
-			Connection conn = DBConnect.getInstance().getConnection();
+			Connection conn = DBConnect.getConnection();
 			PreparedStatement st = conn.prepareStatement(sql);
 
 			st.setString(1, p.getNome());
@@ -177,7 +177,7 @@ public class ArticoloDAO {
 		Set<Mostrina> mostrine = new HashSet<>();
 
 		try {
-			Connection conn = DBConnect.getInstance().getConnection();
+			Connection conn = DBConnect.getConnection();
 			PreparedStatement st = conn.prepareStatement(sql);
 
 			ResultSet rs = st.executeQuery();
@@ -204,7 +204,7 @@ public class ArticoloDAO {
 		final String sql = "INSERT INTO mostrina (nome) VALUES (?)";
 
 		try {
-			Connection conn = DBConnect.getInstance().getConnection();
+			Connection conn = DBConnect.getConnection();
 			PreparedStatement st = conn.prepareStatement(sql);
 
 			st.setString(1, m.getNome());

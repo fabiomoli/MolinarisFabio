@@ -78,7 +78,7 @@ public class Model {
 				if (!articoliDB.contains(a)){
 					dao.addArticolo(a);
 					articoliNew.add(a);
-					System.out.println(a);
+					//System.out.println(a);
 				}
 				if (!penne.contains(a.getPenna())){
 					dao.addPenna(a.getPenna());
@@ -107,7 +107,7 @@ public class Model {
 			}
 			BackupText bt = new BackupText();
 			bt.backupText(a);
-			System.out.println("NUOVO!!!");
+			//System.out.println("NUOVO!!!");
 		}
 	}
 
