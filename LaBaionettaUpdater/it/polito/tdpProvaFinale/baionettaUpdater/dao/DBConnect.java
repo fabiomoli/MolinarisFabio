@@ -1,28 +1,37 @@
 package it.polito.tdpProvaFinale.baionettaUpdater.dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
+import javax.sql.DataSource;
+
+import com.mchange.v2.c3p0.DataSources;
 
 public class DBConnect {
 
-	private final static String jdbcURL = "jdbc:mysql://localhost/baionetta?user=fabio&password=  ";
+	private static String jdbcURL = "jdbc:mysql://localhost/baionetta" ;
 
-	private static Connection myConn = null;
+	private static DataSource ds ;
 
 	public static Connection getConnection() {
 
-		if (myConn != null)
-			return myConn;
-
-		Connection c = null;
-		try {
-			c = DriverManager.getConnection(jdbcURL);
-		} catch (SQLException e) {
-			System.err.println("Error MySQL Connection");
+		if(ds==null) {
+			try {
+				ds = DataSources.pooledDataSource(DataSources.unpooledDataSource(jdbcURL, "fabio", "gtik9328")) ;
+			} catch (SQLException e) {
+				e.printStackTrace();
+				System.exit(1);
+			}
 		}
 
-		myConn = c;
-		return c;
+		try {
+			Connection c = ds.getConnection() ;
+			return c ;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null ;
+		}
+
 	}
+
 }

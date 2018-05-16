@@ -42,7 +42,9 @@ public class ArticoloDAO {
 	}
 
 	public void addArticolo(Articolo a) {
+
 		final String sql = "INSERT INTO articolo (titolo, mostrina, penna, link, data)" + " VALUES (?, ?, ?, ?, ?)";
+
 		try {
 			Connection conn = DBConnect.getConnection();
 			PreparedStatement st = conn.prepareStatement(sql);
