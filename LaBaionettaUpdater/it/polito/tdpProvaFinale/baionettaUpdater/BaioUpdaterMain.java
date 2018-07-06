@@ -47,7 +47,7 @@ public class BaioUpdaterMain {
 		// Tell quartz to schedule the job using our trigger
 		try {
 			scheduler.scheduleJob(job, trigger);
-			System.out.println("v2.1.1");
+			System.out.println("v2.1.2");
 		} catch (SchedulerException e) {
 			System.err.println("Error executing hourly jobs 02");
 		}
